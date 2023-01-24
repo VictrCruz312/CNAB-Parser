@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
+from django.views import View
 
 from .forms import UploadFileForm
 from .models import CNABMovimentation
-from .serializers import CNABMovimentationSerializer
+from .serializers import CNABMovimentationSerializer, ListMovimentationSerializer
 import ipdb
 
 
-def upload_file(request):
-    if request.method == "POST":
+class UploadFileView(View):
+    def post(self, request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             type_dict = {
@@ -41,14 +42,77 @@ def upload_file(request):
             serializer = CNABMovimentationSerializer(data=new_file, many=True)
 
             serializer.is_valid(raise_exception=True)
-
             serializer.save()
 
-            return redirect("listMovimentation/")
-    else:
+            return self.get(request)
+
+        else:
+            return render(request, "cnab_upload/upload.html", {"form": form})
+
+    def get(self, request):
         form = UploadFileForm()
-    return render(request, "cnab_upload/upload.html", {"form": form})
+
+        items = CNABMovimentation.objects.all()
+
+        store_balances = {}
+
+        for item in items:
+            store = item.Nome_da_loja
+            balance = item.Valor
+            if item.operacao == "+":
+                if store in store_balances:
+                    store_balances[store] += balance
+                else:
+                    store_balances[store] = balance
+            else:
+                if store in store_balances:
+                    store_balances[store] -= balance
+                else:
+                    store_balances[store] = -balance
+
+        items = [
+            item
+            for item in items
+            if store_balances.get(item.Nome_da_loja, None) is not None
+        ]
+        for item in items:
+            item.balance = store_balances[item.Nome_da_loja]
+
+        return render(
+            request, "cnab_upload/upload.html", {"form": form, "items": items}
+        )
 
 
-def listMovimentation(request):
-    return render(request, "cnab_upload/listMovimentation.html")
+class ItemListView(View):
+    def get(self, request, *args, **kwargs):
+        items = CNABMovimentation.objects.all()
+
+        store_balances = {}
+
+        for item in items:
+            store = item.Nome_da_loja
+            balance = item.Valor
+            if item.operacao == "+":
+                if store in store_balances:
+                    store_balances[store] += balance
+                else:
+                    store_balances[store] = balance
+            else:
+                if store in store_balances:
+                    store_balances[store] -= balance
+                else:
+                    store_balances[store] = -balance
+
+        items = [
+            item
+            for item in items
+            if store_balances.get(item.Nome_da_loja, None) is not None
+        ]
+        for item in items:
+            item.balance = store_balances[item.Nome_da_loja]
+
+        return render(
+            request,
+            "cnab_upload/listMovimentations.html",
+            {"items": items},
+        )
