@@ -4,6 +4,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 ENV PYTHONUNBUFFERED 1
 
+WORKDIR /app/cnab_parser
+
 COPY . /app/cnab_parser/
 
 RUN pip install -U pip
