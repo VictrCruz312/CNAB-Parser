@@ -25,6 +25,7 @@ body {
   font-size: 34px;
   font-weight: 900;
   color: rgb(97, 97, 97, 0.4);
+  text-align: center;
 }
 
 .submitForm {

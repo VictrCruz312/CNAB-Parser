@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/form.styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/list.styles.css' %}">
 </head>
 
 <body>
@@ -20,7 +21,21 @@
         <div class="drag-message">Arraste e solte</div>
     </form>
 
-    <h1>Lista de Operações Importadas por Lojas</h1>
+    <h1 class="title">Lista de Operações Importadas por Lojas</h1>
+    <div class="filterName">
+        <label for="store_select">Filtre por loja:</label>
+        <select id="store_select" name="store_select">
+            {% if filter == "Selecione a loja" %}
+            <option value="{{filter}}">{{filter}}</option>
+            {% else %}
+            <option value=({{filter}})>{{filter}}</option>
+            <option value="Todas">Todas</option>
+            {% endif %}
+            {% for loja in lojas %}
+            <option value="{{ loja }}">{{ loja }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <table>
         <thead>
             <tr>
@@ -34,7 +49,7 @@
         <tbody>
             {% for item in items %}
             <tr>
-                <td>{{ item.Nome_da_loja }}</td>
+                <td class="nameLoja">{{ item.Nome_da_loja }}</td>
                 <td>{{ item.Tipo }}</td>
                 <td>{{ item.Data }}</td>
                 <td>{{ item.Valor }}</td>
@@ -45,6 +60,7 @@
     </table>
 
     <script src="{% static 'js/draghover.js' %}"></script>
+    <script src="{% static 'js/filter_stores.js' %}"></script>
 </body>
 
 </html>
