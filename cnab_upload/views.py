@@ -3,7 +3,7 @@ from django.views import View
 
 from .forms import UploadFileForm
 from .models import CNABMovimentation
-from .serializers import CNABMovimentationSerializer, ListMovimentationSerializer
+from .serializers import CNABMovimentationSerializer
 import ipdb
 
 
