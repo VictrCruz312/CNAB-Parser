@@ -23,8 +23,5 @@ CNAB-Parser é uma aplicação web desenvolvida em Python, utilizando o framewor
 2. Visualize a lista de operações importadas por loja e seus respectivos totais de saldo
 3. Utilize o filtro de seleção de loja para visualizar apenas as operações de uma determinada loja
 
-## Licença
-Este projeto está licenciado sob a licença MIT, consulte o arquivo [LICENSE](https://github.com/VictrCruz312/CNAB-Parser/blob/master/LICENSE) para mais detalhes.
-
 ## Créditos
 CNAB-Parser foi desenvolvido por [VictrCruz312](github.com/VictrCruz312/) com o objetivo de facilitar o processamento de arquivos CNAB.
