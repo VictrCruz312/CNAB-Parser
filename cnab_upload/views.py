@@ -54,6 +54,21 @@ class UploadFileView(View):
 
         items = CNABMovimentation.objects.all()
 
+        # setando lista de lojas que contem nos items:
+        lojas = set()
+
+        for item in items:
+            lojas.add(item.Nome_da_loja)
+
+        # filtrando a lista caso tenha o filtro:
+        storeFilter = request.GET.get("store")
+
+        if storeFilter:
+            items = items.filter(Nome_da_loja=storeFilter)
+            lojas.remove(storeFilter)
+        else:
+            storeFilter = "Selecione a loja"
+
         store_balances = {}
 
         for item in items:
@@ -75,44 +90,12 @@ class UploadFileView(View):
             for item in items
             if store_balances.get(item.Nome_da_loja, None) is not None
         ]
-        for item in items:
-            item.balance = store_balances[item.Nome_da_loja]
 
-        return render(
-            request, "cnab_upload/upload.html", {"form": form, "items": items}
-        )
-
-
-class ItemListView(View):
-    def get(self, request, *args, **kwargs):
-        items = CNABMovimentation.objects.all()
-
-        store_balances = {}
-
-        for item in items:
-            store = item.Nome_da_loja
-            balance = item.Valor
-            if item.operacao == "+":
-                if store in store_balances:
-                    store_balances[store] += balance
-                else:
-                    store_balances[store] = balance
-            else:
-                if store in store_balances:
-                    store_balances[store] -= balance
-                else:
-                    store_balances[store] = -balance
-
-        items = [
-            item
-            for item in items
-            if store_balances.get(item.Nome_da_loja, None) is not None
-        ]
         for item in items:
             item.balance = store_balances[item.Nome_da_loja]
 
         return render(
             request,
-            "cnab_upload/listMovimentations.html",
-            {"items": items},
+            "cnab_upload/upload.html",
+            {"form": form, "items": items, "lojas": lojas, "filter": storeFilter},
         )
