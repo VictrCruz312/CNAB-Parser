@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formText {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #ccc;
+  padding: 60px;
+  background: rgb(243, 243, 243);
+}
+.formText.dragover {
+  border-color: #000;
+  box-shadow: 0 0 10px #000;
+  transition: all 0.2s;
+}
+
+.formText .drag-message {
+  padding-top: 20px;
+  font-size: 34px;
+  font-weight: 900;
+  color: rgb(97, 97, 97, 0.4);
+  text-align: center;
+}
+
+.submitForm {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 21px;
+  font-weight: 900;
+  background-color: #ccc;
+  border: 2px solid rgb(36, 36, 36);
+  color: #000;
+  transition: 0.1s;
+}
+
+.submitForm:hover {
+  border: 2px solid #ccc;
+  color: rgb(201, 201, 201);
+  background-color: rgb(36, 36, 36);
+}

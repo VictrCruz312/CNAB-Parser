@@ -1,6 +1,4 @@
 from django.urls import path
-from .views import upload_file
+from .views import UploadFileView, ItemListView
 
-urlpatterns = [
-    path("upload/", upload_file, name="upload"),
-]
+urlpatterns = [path("upload/", UploadFileView.as_view(), name="upload")]
