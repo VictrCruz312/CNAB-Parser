@@ -24,4 +24,4 @@ CNAB-Parser é uma aplicação web desenvolvida em Python, utilizando o framewor
 3. Utilize o filtro de seleção de loja para visualizar apenas as operações de uma determinada loja
 
 ## Créditos
-CNAB-Parser foi desenvolvido por [VictrCruz312]([github.com/VictrCruz312/](https://github.com/VictrCruz312)) com o objetivo de facilitar o processamento de arquivos CNAB.
+CNAB-Parser foi desenvolvido por [VictrCruz312](https://github.com/VictrCruz312) com o objetivo de facilitar o processamento de arquivos CNAB.
