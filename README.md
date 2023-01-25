@@ -15,7 +15,7 @@ CNAB-Parser é uma aplicação web desenvolvida em Python, utilizando o framewor
 1. Clone este repositório: `git clone https://github.com/VictrCruz312/CNAB-Parser.git`
 2. Entre no diretório do projeto: `cd CNAB-Parser`
 3. Crie um arquivo `.env` com as configurações de sua aplicação (veja o arquivo `.env.example` como referência)
-4. Execute o comando `docker-compose up -d` para iniciar os containers
+4. Execute o comando `docker-compose up` para iniciar os containers. você pode usar a tag `-d` no final do comando para não travar o terminal nos logs do container
 5. Acesse a aplicação em `http://localhost:8000`
 
 ## Como usar
